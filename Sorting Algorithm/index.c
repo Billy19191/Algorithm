@@ -99,7 +99,7 @@ int quickSelect(int arr[], int left, int right, int k)
         return quickSelect(arr, pivotIndex + 1, right, k);
 }
 
-int generateArray(int arr1[], int arr2[], int arr3[], int n)
+void generateArray(int arr1[], int arr2[], int arr3[], int n)
 {
     for (int i = 0; i < n; i++)
     {
