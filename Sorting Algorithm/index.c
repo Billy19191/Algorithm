@@ -113,13 +113,6 @@ int main()
 {
     int n, k;
 
-    // printf("Select Sorting Algorithm\n");
-    // printf("1. Merge Sort\n");
-    // printf("2. Quick Sort\n");
-    // printf("3. Quick Select\n");
-    // printf("Enter your choice: ");
-    // scanf("%d", &select);
-
     printf("Enter the number of elements (n): ");
     scanf("%d", &n);
 
@@ -131,6 +124,12 @@ int main()
     printf("Enter k: ");
     scanf("%d", &k);
     printf("\n");
+
+    if (k > n)
+    {
+        printf("k should be less than or equal to n\n");
+        return 0;
+    }
 
     printf("Elements of the array before sorting: \n");
 
