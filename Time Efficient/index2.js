@@ -1,3 +1,5 @@
+// import fs from 'fs'
+const fs = require('fs')
 function merge(arr, left, middle, right) {
   let i, j, k
   let n1 = middle - left + 1
@@ -83,8 +85,10 @@ function generateArray(n) {
   }
   return arr
 }
-
-function main() {
+let result_mergesort = [],
+  result_quicksort = [],
+  result_quickselect = []
+const main = () => {
   let n = [
     50, 100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000,
     10000000, 20000000, 50000000,
@@ -99,40 +103,57 @@ function main() {
     let arr3 = [...arr1]
 
     for (let j = 0; j < kSize; j++) {
-      let arrtemp1 = [...arr1]
-      let arrtemp2 = [...arr2]
-      let arrtemp3 = [...arr3]
+      let count = 0
+      while (count < 5) {
+        let arrtemp1 = [...arr1]
+        let arrtemp2 = [...arr2]
+        let arrtemp3 = [...arr3]
 
-      let start, end
+        let start, end
 
-      start = performance.now()
-      mergeSort(arrtemp1, 0, n[i] - 1)
-      end = performance.now()
-      console.log(
-        `Merge Sort (n = ${n[i]}, k = ${k[j]}) Time = ${
-          (end - start) / 1000
-        } seconds`
-      )
+        start = performance.now()
+        mergeSort(arrtemp1, 0, n[i] - 1)
+        end = performance.now()
+        console.log(
+          `Merge Sort (n = ${n[i]}, k = ${k[j]}) Time = ${
+            (end - start) / 1000
+          } seconds`
+        )
 
-      start = performance.now()
-      quickSort(arrtemp2, 0, n[i] - 1)
-      end = performance.now()
-      console.log(
-        `Quick Sort (n = ${n[i]}, k = ${k[j]}) Time = ${
-          (end - start) / 1000
-        } seconds`
-      )
+        result_mergesort.push({ n: n[i], k: k[j], time: (end - start) / 1000 })
 
-      start = performance.now()
-      quickSelect(arrtemp3, 0, n[i] - 1, k[j] - 1)
-      end = performance.now()
-      console.log(
-        `Quick Select (n = ${n[i]}, k = ${k[j]}) Time = ${
-          (end - start) / 1000
-        } seconds`
-      )
+        start = performance.now()
+        quickSort(arrtemp2, 0, n[i] - 1)
+        end = performance.now()
+        console.log(
+          `Quick Sort (n = ${n[i]}, k = ${k[j]}) Time = ${
+            (end - start) / 1000
+          } seconds`
+        )
+
+        result_quicksort.push({ n: n[i], k: k[j], time: (end - start) / 1000 })
+
+        start = performance.now()
+        quickSelect(arrtemp3, 0, n[i] - 1, k[j] - 1)
+        end = performance.now()
+        console.log(
+          `Quick Select (n = ${n[i]}, k = ${k[j]}) Time = ${
+            (end - start) / 1000
+          } seconds`
+        )
+        result_quickselect.push({
+          n: n[i],
+          k: k[j],
+          time: (end - start) / 1000,
+        })
+        count++
+      }
     }
   }
 }
 
 main()
+
+fs.writeFileSync('result_mergesort.json', JSON.stringify(result_mergesort))
+fs.writeFileSync('result_quicksort.json', JSON.stringify(result_quicksort))
+fs.writeFileSync('result_quickselect.json', JSON.stringify(result_quickselect))
